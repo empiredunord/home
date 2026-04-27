@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Empire du Nord</title>
+  <meta name="description" content="Building your digital future" />
+
+  <link rel="icon" href="favicon.ico" />
+  <meta property="og:title" content="Empire du Nord" />
+  <meta property="og:description" content="Building your digital future" />
+  <meta property="og:image" content="logo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Empire du Nord" />
+  <meta name="twitter:description" content="Building your digital future" />
+  <meta name="twitter:image" content="logo.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+    }
+
+    body {
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #preloader {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 40px;
+      height: 40px;
+      margin: -20px 0 0 -20px;
+      border: 4px solid black;
+      border-bottom-color: transparent;
+      border-radius: 50%;
+      display: none;
+      box-sizing: border-box;
+      animation: rotation 1s linear infinite;
+    }
+
+    #preloader.visible {
+      display: inline-block;
+    }
+
+    @keyframes rotation {
+      0%   { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @media (min-width: 840px) {
+      #preloader {
+        width: 80px;
+        height: 80px;
+        margin: -40px 0 0 -40px;
+        border-width: 8px;
+      }
+    }
+
+    #brand {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding-right: 4px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 2s;
+    }
+
+    #brand.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    #brand img {
+      width: 64px;
+      height: 64px;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+
+    #brand h1 {
+      font-family: 'Oswald', monospace;
+      font-weight: 700;
+      font-size: 36px;
+      line-height: 1;
+      color: #000;
+      text-transform: uppercase;
+    }
+
+    @media (min-width: 840px) {
+      #brand {
+        gap: 32px;
+        padding-right: 16px;
+      }
+
+      #brand img {
+        width: 180px;
+        height: 180px;
+      }
+
+      #brand h1 {
+        font-size: 72px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="preloader"></div>
+
+  <div id="brand">
+    <img src="logo.png" alt="Empire du Nord logo" id="logo" />
+    <h1>Empire du Nord</h1>
+  </div>
+
+  <script>
+    var preloader = document.getElementById('preloader');
+    var brand = document.getElementById('brand');
+    var showTimer = setTimeout(function() {
+      preloader.classList.add('visible');
+    }, 200);
+
+    Promise.all([
+      document.fonts.load("700 1em 'Oswald'"),
+      new Promise(function(resolve) {
+        var img = document.getElementById('logo');
+        if (img.complete) { resolve(); } else {
+          img.addEventListener('load', resolve);
+          img.addEventListener('error', resolve);
+        }
+      })
+    ]).then(function() {
+      clearTimeout(showTimer);
+      preloader.classList.remove('visible');
+      brand.classList.add('visible');
+    });
+  </script>
+</body>
+</html>
